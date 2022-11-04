@@ -76,6 +76,7 @@ namespace UsersAndGroupsManager
         {
             clientGroupBL.AssignUserOrUnAssignToGroup(true, 1, new List<UserGroups>());
             //fetch updated list of assigne and unassigned groups
+            InvocableLoadAssignedAndUnassigedGroups(1);
             return 1;
         }
 
@@ -83,6 +84,7 @@ namespace UsersAndGroupsManager
         {
             clientGroupBL.AssignUserOrUnAssignToGroup(true, 1, new List<UserGroups>());
             //fetch updated list of assigne and unassigned groups
+            InvocableLoadAssignedAndUnassigedGroups(1);
             return 1;
         }
 
