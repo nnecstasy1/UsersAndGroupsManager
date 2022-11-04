@@ -43,6 +43,7 @@
             this.btnAssign.TabIndex = 0;
             this.btnAssign.Text = "<";
             this.btnAssign.UseVisualStyleBackColor = true;
+            this.btnAssign.Click += new System.EventHandler(this.btnAssign_Click);
             // 
             // btnUnassign
             // 
@@ -55,6 +56,7 @@
             this.btnUnassign.TabIndex = 1;
             this.btnUnassign.Text = ">";
             this.btnUnassign.UseVisualStyleBackColor = true;
+            this.btnUnassign.Click += new System.EventHandler(this.btnUnassign_Click);
             // 
             // AssignOrUnassign
             // 
@@ -63,6 +65,7 @@
             this.Controls.Add(this.btnUnassign);
             this.Controls.Add(this.btnAssign);
             this.Name = "AssignOrUnassign";
+            this.Load += new System.EventHandler(this.AssignOrUnassign_Load);
             this.ResumeLayout(false);
 
         }

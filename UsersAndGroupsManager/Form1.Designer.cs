@@ -36,7 +36,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.ucUnassigned = new UsersAndGroupsManager.Controls.ClientGroup();
             this.ucAssigned = new UsersAndGroupsManager.Controls.ClientGroup();
-            this.assignOrUnassign1 = new UsersAndGroupsManager.Controls.AssignOrUnassign();
+            this.ucAssignUnassign = new UsersAndGroupsManager.Controls.AssignOrUnassign();
             this.filterContainer1 = new UsersAndGroupsManager.Controls.FilterContainer();
             this.ucClientGroupHeader = new UsersAndGroupsManager.Controls.Header();
             ((System.ComponentModel.ISupportInitialize)(this.pnlMain)).BeginInit();
@@ -118,7 +118,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 317F));
             this.tableLayoutPanel1.Controls.Add(this.ucUnassigned, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.ucAssigned, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.assignOrUnassign1, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.ucAssignUnassign, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 71);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -143,13 +143,13 @@
             this.ucAssigned.Size = new System.Drawing.Size(316, 119);
             this.ucAssigned.TabIndex = 0;
             // 
-            // assignOrUnassign1
+            // ucAssignUnassign
             // 
-            this.assignOrUnassign1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.assignOrUnassign1.Location = new System.Drawing.Point(325, 3);
-            this.assignOrUnassign1.Name = "assignOrUnassign1";
-            this.assignOrUnassign1.Size = new System.Drawing.Size(159, 119);
-            this.assignOrUnassign1.TabIndex = 2;
+            this.ucAssignUnassign.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucAssignUnassign.Location = new System.Drawing.Point(325, 3);
+            this.ucAssignUnassign.Name = "ucAssignUnassign";
+            this.ucAssignUnassign.Size = new System.Drawing.Size(159, 119);
+            this.ucAssignUnassign.TabIndex = 2;
             // 
             // filterContainer1
             // 
@@ -200,7 +200,7 @@
         private Controls.FilterContainer filterContainer1;
         private Controls.ClientGroup ucUnassigned;
         private Controls.ClientGroup ucAssigned;
-        private Controls.AssignOrUnassign assignOrUnassign1;
+        private Controls.AssignOrUnassign ucAssignUnassign;
         private TableLayoutPanel tableLayoutPanel1;
     }
 }

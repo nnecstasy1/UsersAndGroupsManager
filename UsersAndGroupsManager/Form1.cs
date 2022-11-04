@@ -8,6 +8,7 @@ namespace UsersAndGroupsManager
         private readonly IServiceProvider serviceProvider;
         UserBL userBL;
         UserGroupsBL userGroupsBL;
+        ClientGroupBL clientGroupBL;
         List<UserGroups> assigned;
         List<UserGroups> unassigned;
 
@@ -65,6 +66,26 @@ namespace UsersAndGroupsManager
 
             userGroupsBL = new UserGroupsBL(serviceProvider);
             ucUserGrid.UpdateUsersGrid(usersList);
+
+            clientGroupBL = new ClientGroupBL(serviceProvider);
+
+            ucAssignUnassign.btnAssignFunc = AssignUser;
+            ucAssignUnassign.btnUnassignFunc = UnassignUser;
         }
+        private int AssignUser()
+        {
+            clientGroupBL.AssignUserOrUnAssignToGroup(true, 1, new List<UserGroups>());
+            //fetch updated list of assigne and unassigned groups
+            return 1;
+        }
+
+        private int UnassignUser()
+        {
+            clientGroupBL.AssignUserOrUnAssignToGroup(true, 1, new List<UserGroups>());
+            //fetch updated list of assigne and unassigned groups
+            return 1;
+        }
+
+        
     }
 }
