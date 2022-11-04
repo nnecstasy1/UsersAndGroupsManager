@@ -2,6 +2,7 @@
 
 namespace Infrastructure
 {
+    [Index(nameof(UserId))]
     public class ClientGroupUserEntity : TEntity
     {
         //TODO: referential integrity constraint fix between entities.
