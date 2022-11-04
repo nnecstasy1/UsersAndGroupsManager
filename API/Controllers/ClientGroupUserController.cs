@@ -60,17 +60,17 @@
         }
 
         [HttpPut("addmany")]
-        public async Task<IActionResult> Add([FromBody] ClientGroupUsersFB clientGroupUser)
+        public async Task<IActionResult> Add([FromBody] ClientGroupUserFB[] clientGroupUser)
         {
             if (!ModelState.IsValid)
                 return BadRequest("invalid model.");
             
             try
             {
-                if (clientGroupUser == null || !clientGroupUser.clientGroupUsers.Any()) 
+                if (clientGroupUser == null || !clientGroupUser.Any()) 
                     return BadRequest("empty collection.");
 
-                var mappedData = _mapper.Map<ClientGroupUserEntity[]>(clientGroupUser.clientGroupUsers);
+                var mappedData = _mapper.Map<ClientGroupUserEntity[]>(clientGroupUser);
                 _unitOfWork.ClientGroupUser.Add(mappedData);
                 await _unitOfWork.SaveChanges();
                 return Ok();
@@ -101,22 +101,14 @@
         }
 
         [HttpDelete("deletemany")]
-        public async Task<IActionResult> Delete([FromBody]IdCollection IdCollection)
+        public async Task<IActionResult> Delete([FromBody]int[] IdCollection)
         {
-            if (!ModelState.IsValid || !IdCollection.Ids.Any())
+            if (!ModelState.IsValid || !IdCollection.Any())
                 return BadRequest("invalid ids recieved.");
 
             try
             {
-                int[] idsToRemove = new int[IdCollection.Ids.Length];
-                int counter = 0;
-                foreach (var item in IdCollection.Ids)
-                {
-                    idsToRemove[counter] = item.id;
-                    counter++;
-                }
-
-                var clientGroupUsers = _unitOfWork.ClientGroupUser.GetAll().Result.Where(x => x.Id.In(idsToRemove));
+                var clientGroupUsers = _unitOfWork.ClientGroupUser.GetAll().Result.Where(x => x.Id.In(IdCollection));
                 _unitOfWork.ClientGroupUser.Delete(clientGroupUsers.ToArray());
                 await _unitOfWork.SaveChanges();
                 return Ok();

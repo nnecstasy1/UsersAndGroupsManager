@@ -14,6 +14,7 @@ namespace UsersAndGroupsManager.Controls
     public partial class UsersGrid : UserControl
     {
         public Func<int,int> GetGroupsForUserFunc { get; set; }
+        public int SelectedUserId { get; private set; }
         private List<User> users;
         public UsersGrid()
         {
@@ -43,8 +44,8 @@ namespace UsersAndGroupsManager.Controls
         {
             int selectedRowIndex = grdUsers.CurrentRow.Index;
             var selectedUser = (User)grdUsers.Rows[selectedRowIndex].DataBoundItem;
-
-            if (selectedUser != null) GetGroupsForUserFunc.Invoke(selectedUser.UserId);
+            SelectedUserId = selectedUser.UserId;
+            if (selectedUser != null) GetGroupsForUserFunc.Invoke(SelectedUserId);
         }
     }
 }

@@ -34,20 +34,8 @@ namespace UsersAndGroupsManager
         public async void GetAssignedAndUnassignedGroups(int userId)
         {
             (assigned, unassigned) = userGroupsBL.GetAssignedUsersGroupsAsync(userId);
-
-            UpdateGroupsListItems();
-        }
-
-        private void UpdateGroupsListItems()
-        {
-            //List<UserGroups> bList = new List<UserGroups>();
-            //bList.Add(new UserGroups() { Id = 1, Name = "item one", IsHidden=false });
-            foreach (var item in assigned)
-            {
-                ucAssigned.userGroups.Add(item);
-            }
-            //TODO: pass through the data and update controls
-            ucAssigned.UpdateListDataFunc.Invoke();
+            ucAssigned.userGroups = assigned;
+            ucUnassigned.userGroups = unassigned;
         }
 
         private async Task FetchUsers()
@@ -74,17 +62,19 @@ namespace UsersAndGroupsManager
         }
         private int AssignUser()
         {
-            clientGroupBL.AssignUserOrUnAssignToGroup(true, 1, new List<UserGroups>());
-            //fetch updated list of assigne and unassigned groups
-            InvocableLoadAssignedAndUnassigedGroups(1);
+            ucAssigned.SelectedUserGroups();
+            clientGroupBL.AssignUserOrUnAssignToGroup(true, ucUserGrid.SelectedUserId, ucAssigned.selectedUserGroupsList);
+            //fetch updated list of assigned groups
+            InvocableLoadAssignedAndUnassigedGroups(ucUserGrid.SelectedUserId);
             return 1;
         }
 
         private int UnassignUser()
         {
-            clientGroupBL.AssignUserOrUnAssignToGroup(true, 1, new List<UserGroups>());
-            //fetch updated list of assigne and unassigned groups
-            InvocableLoadAssignedAndUnassigedGroups(1);
+            ucUnassigned.SelectedUserGroups();
+            clientGroupBL.AssignUserOrUnAssignToGroup(false, ucUserGrid.SelectedUserId, ucUnassigned.selectedUserGroupsList);
+            //fetch updated list of unassigned groups
+            InvocableLoadAssignedAndUnassigedGroups(ucUserGrid.SelectedUserId);
             return 1;
         }
 

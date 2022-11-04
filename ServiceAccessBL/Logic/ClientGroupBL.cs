@@ -37,7 +37,7 @@
 
             if (clientGroups.Any())
             {
-                AssignOrUnAssignUsersToGroupAPI(clientGroups.ToString(), assignment);
+                AssignOrUnAssignUsersToGroupAPI(JsonConvert.SerializeObject(clientGroups), assignment);
             }
         }
 
@@ -59,13 +59,15 @@
         private async void AssignOrUnAssignUsersToGroupAPI(string body, bool assign = false)
         {
             string method = "deletemany";
+            HttpMethod httpMethod = HttpMethod.Delete;
             if(assign)
             {
                 method = "addmany";
+                httpMethod = HttpMethod.Put;
             }
 
             IAPICallResult<List<UserGroups>> result = await _httpClientService
-                 .MakeRequest<List<UserGroups>>(HttpMethod.Get, $"https://localhost:7288/api/{controller}/{method}", body)
+                 .MakeRequest<List<UserGroups>>(httpMethod, $"https://localhost:7288/api/{controller}/{method}", body)
                  .ConfigureAwait(true);
         }
     }
