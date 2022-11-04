@@ -3,6 +3,7 @@
     public class ClientGroupBL
     {
         readonly IHttpClientService _httpClientService;
+        private const string controller = "clientgroupuser";
 
         public ClientGroupBL(IServiceProvider serviceProvider)
         {
@@ -12,7 +13,7 @@
         public List<int> GetClientGroupsForUser(int id)
         {
             List<int> groups = new List<int>();
-            List<ClientGroups> clientGroupItems = Task.Run(()=>GetClientGroupsForUserAPI(id)).Result;
+            List<ClientGroups> clientGroupItems = Task.Run(() => GetClientGroupsForUserAPI(id)).Result;
 
             foreach (var item in clientGroupItems)
             {
@@ -20,12 +21,31 @@
             }
             return groups;
         }
+        
+        public void AssignUserOrUnAssignToGroup(bool assignment, int userId, List<UserGroups> userGroups)
+        {
+            List<ClientGroups> clientGroups = new List<ClientGroups>();
+
+            foreach (var ug in userGroups)
+            {
+                clientGroups.Add(new ClientGroups()
+                {
+                    UserId = userId,
+                    ClientGroupId = ug.Id
+                });
+            }
+
+            if (clientGroups.Any())
+            {
+                AssignOrUnAssignUsersToGroupAPI(clientGroups.ToString(), assignment);
+            }
+        }
 
         //TODO: update endpoint, parameterize url
         private async Task<List<ClientGroups>> GetClientGroupsForUserAPI(int id)
         {
             IAPICallResult<List<ClientGroups>> result = await _httpClientService
-                 .MakeRequest<List<ClientGroups>>(HttpMethod.Get, $"https://localhost:7288/api/clientgroupuser/usergroups/{id}/", null)
+                 .MakeRequest<List<ClientGroups>>(HttpMethod.Get, $"https://localhost:7288/api/{controller}/usergroups/{id}/", null)
                  .ConfigureAwait(true);
 
             if (!result.IsSuccessStatusCode)
@@ -34,6 +54,19 @@
             }
 
             return result.ResultObject;
+        }
+
+        private async void AssignOrUnAssignUsersToGroupAPI(string body, bool assign = false)
+        {
+            string method = "deletemany";
+            if(assign)
+            {
+                method = "addmany";
+            }
+
+            IAPICallResult<List<UserGroups>> result = await _httpClientService
+                 .MakeRequest<List<UserGroups>>(HttpMethod.Get, $"https://localhost:7288/api/{controller}/{method}", body)
+                 .ConfigureAwait(true);
         }
     }
 }
