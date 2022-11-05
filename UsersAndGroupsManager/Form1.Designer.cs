@@ -145,6 +145,8 @@
             // 
             // ucAssignUnassign
             // 
+            this.ucAssignUnassign.btnAssignFunc = null;
+            this.ucAssignUnassign.btnUnassignFunc = null;
             this.ucAssignUnassign.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucAssignUnassign.Location = new System.Drawing.Point(325, 3);
             this.ucAssignUnassign.Name = "ucAssignUnassign";

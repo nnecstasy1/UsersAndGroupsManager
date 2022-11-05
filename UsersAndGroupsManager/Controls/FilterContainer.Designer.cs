@@ -53,6 +53,7 @@
             this.txtFilter.Name = "txtFilter";
             this.txtFilter.Size = new System.Drawing.Size(283, 27);
             this.txtFilter.TabIndex = 1;
+            this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnterKeyToSearch);
             // 
             // FilterContainer
             // 

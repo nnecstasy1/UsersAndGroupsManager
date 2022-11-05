@@ -27,6 +27,7 @@ namespace UsersAndGroupsManager
             ucUserGrid.GetGroupsForUserFunc = LoadAssignedAndUnassigedGroupsTask;
             ucAssignUnassign.btnAssignFunc = AssignUser;
             ucAssignUnassign.btnUnassignFunc = UnassignUser;
+            filterContainer1.SearchFunc = SearchGroup;
         }
         public int LoadAssignedAndUnassigedGroupsTask(int userId)
         {
@@ -39,8 +40,7 @@ namespace UsersAndGroupsManager
             ucAssigned.userGroups = new BindingList<UserGroups>(assigned);
             ucUnassigned.userGroups = new BindingList<UserGroups>(unassigned);
 
-            ucAssigned.ManageListBoxItems();
-            ucUnassigned.ManageListBoxItems();
+            UpdateListBoxItems();
         }
 
         private async Task FetchUsers()
@@ -58,7 +58,7 @@ namespace UsersAndGroupsManager
             userGroupsBL = new UserGroupsBL(serviceProvider);
             clientGroupBL = new ClientGroupBL(serviceProvider);
             
-            await FetchUsers();
+            await FetchUsers();            
             ucUserGrid.UpdateUsersDataSource(usersList);
         }
 
@@ -76,6 +76,19 @@ namespace UsersAndGroupsManager
             LoadAssignedAndUnassigedGroupsTask(ucUserGrid.SelectedUserId);
         }
 
-        
+        private void SearchGroup(string groupName)
+        {
+            //should the search be an exact string match(=) or a contains(like)??
+            ucAssigned.userGroups = new BindingList<UserGroups>(assigned.Where(x => x.Name == groupName).ToList());
+            ucUnassigned.userGroups = new BindingList<UserGroups>(unassigned.Where(x => x.Name == groupName).ToList());
+
+            UpdateListBoxItems();
+        }
+
+        private void UpdateListBoxItems()
+        {
+            ucAssigned.ManageListBoxItems();
+            ucUnassigned.ManageListBoxItems();
+        }
     }
 }
