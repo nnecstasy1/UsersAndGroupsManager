@@ -55,13 +55,13 @@ namespace UsersAndGroupsManager
             unassigned = new List<UserGroups>();
 
             userBL = new UserBL(serviceProvider);
-            await FetchUsers();
-
             userGroupsBL = new UserGroupsBL(serviceProvider);
-            ucUserGrid.UpdateUsersGrid(usersList);
-
             clientGroupBL = new ClientGroupBL(serviceProvider);
+            
+            await FetchUsers();
+            ucUserGrid.UpdateUsersDataSource(usersList);
         }
+
         private void AssignUser()
         {
             ucUnassigned.SelectedUserGroups();
