@@ -13,6 +13,21 @@
             LoadDefaultData();
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ClientGroupUserEntity>()
+            .HasOne(u => u.UserEntity)
+            .WithMany(g => g.ClientGroupUsers)
+            .HasForeignKey(s => s.UserId);
+
+            modelBuilder.Entity<ClientGroupUserEntity>()
+            .HasOne(u => u.ClientGroupEntity)
+            .WithMany(g => g.ClientGroupUsers)
+            .HasForeignKey(s => s.ClientGroupId);
+        }
+
         #region Entities
         DbSet<UserEntity> Users { get; set; }
         DbSet<ClientGroupEntity> ClientGroups { get; set; }
@@ -36,7 +51,7 @@
                new UserEntity(){ Name = "Sergiy", IsGlobalUser = true},
                new UserEntity(){ Name = "Andrii", IsGlobalUser = true},
             });
-            
+
             ClientGroups.AddRange(new ClientGroupEntity[]
             {
                 new ClientGroupEntity(){ Name = "Client Group 1", IsHidden = false},

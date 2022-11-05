@@ -22,7 +22,7 @@
             return groups;
         }
         
-        public void AssignUserOrUnAssignToGroup(bool assignment, int userId, List<UserGroups> userGroups)
+        public async Task AssignUserOrUnAssignToGroup(bool assignment, int userId, List<UserGroups> userGroups)
         {
             List<ClientGroups> clientGroups = new List<ClientGroups>();
 
@@ -37,7 +37,7 @@
 
             if (clientGroups.Any())
             {
-                AssignOrUnAssignUsersToGroupAPI(JsonConvert.SerializeObject(clientGroups), assignment);
+                await AssignOrUnAssignUsersToGroupAPI(JsonConvert.SerializeObject(clientGroups), assignment);
             }
         }
 
@@ -56,7 +56,7 @@
             return result.ResultObject;
         }
 
-        private async void AssignOrUnAssignUsersToGroupAPI(string body, bool assign = false)
+        private async Task AssignOrUnAssignUsersToGroupAPI(string body, bool assign = false)
         {
             string method = "deletemany";
             HttpMethod httpMethod = HttpMethod.Delete;

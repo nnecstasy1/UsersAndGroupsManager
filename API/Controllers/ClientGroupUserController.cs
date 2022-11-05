@@ -20,21 +20,21 @@
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            IEnumerable<ClientGroupUserEntity> resultObject = await _unitOfWork.ClientGroupUser.GetAll();
+            IEnumerable<ClientGroupUserEntity> resultObject = await _unitOfWork.ClientGroupUserRepository.GetAll();
             return Ok(resultObject);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            ClientGroupUserEntity result = await _unitOfWork.ClientGroupUser.Get(id);
+            ClientGroupUserEntity result = await _unitOfWork.ClientGroupUserRepository.Get(id);
             return Ok(result);
         }
 
         [HttpGet("usergroups/{id}")]
         public async Task<IActionResult> GetUserClientGroups(int id)
         {
-            IEnumerable<ClientGroupUserEntity> result = await _unitOfWork.ClientGroupUser.GetUserAssignedClientGroupsByUserId(id);
+            IEnumerable<ClientGroupUserEntity> result = await _unitOfWork.ClientGroupUserRepository.GetUserAssignedClientGroupsByUserId(id);
             return Ok(result);
         }
 
@@ -48,7 +48,7 @@
             {
                 var mappedData = _mapper.Map<ClientGroupUserEntity>(clientGroupUser);
 
-                _unitOfWork.ClientGroupUser.Add(mappedData);
+                _unitOfWork.ClientGroupUserRepository.Add(mappedData);
                 await _unitOfWork.SaveChanges();
                 return Ok();
             }
@@ -71,7 +71,7 @@
                     return BadRequest("empty collection.");
 
                 var mappedData = _mapper.Map<ClientGroupUserEntity[]>(clientGroupUser);
-                _unitOfWork.ClientGroupUser.Add(mappedData);
+                _unitOfWork.ClientGroupUserRepository.Add(mappedData);
                 await _unitOfWork.SaveChanges();
                 return Ok();
             }
@@ -89,7 +89,7 @@
                 return BadRequest("invalid id recieved.");
             try
             {
-                _unitOfWork.ClientGroupUser.Delete((int)id);
+                _unitOfWork.ClientGroupUserRepository.Delete((int)id);
                 await _unitOfWork.SaveChanges();
                 return Ok();
             }
@@ -101,15 +101,35 @@
         }
 
         [HttpDelete("deletemany")]
-        public async Task<IActionResult> Delete([FromBody]int[] IdCollection)
+        public async Task<IActionResult> Delete([FromBody] ClientGroupUserFB[] clientGroupUser)
         {
-            if (!ModelState.IsValid || !IdCollection.Any())
+            if (!ModelState.IsValid)
                 return BadRequest("invalid ids recieved.");
 
             try
             {
-                var clientGroupUsers = _unitOfWork.ClientGroupUser.GetAll().Result.Where(x => x.Id.In(IdCollection));
-                _unitOfWork.ClientGroupUser.Delete(clientGroupUsers.ToArray());
+                var result = _unitOfWork.ClientGroupUserRepository.GetAll().Result.ToList();
+                if(result == null)
+                {
+                    return Ok();
+                }
+
+                List<ClientGroupUserEntity> clientGroupEntities = new List<ClientGroupUserEntity>();
+                foreach (var a in clientGroupUser)
+                {
+                    foreach (var b in result)
+                    {
+                        if (b.UserId == a.UserId && b.ClientGroupId == a.ClientGroupId)
+                        {
+                            clientGroupEntities.Add(b);
+                            //narrow down the data on following iteration
+                            if(clientGroupUser.Length > 1) result.Remove(b);
+                            break;
+                        }
+                    }
+                }
+
+                _unitOfWork.ClientGroupUserRepository.Delete(clientGroupEntities.ToArray());
                 await _unitOfWork.SaveChanges();
                 return Ok();
             }

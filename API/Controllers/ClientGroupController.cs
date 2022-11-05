@@ -13,14 +13,14 @@
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            IEnumerable<ClientGroupEntity> resultObject = await _unitOfWork.ClientGroup.GetAll();
+            IEnumerable<ClientGroupEntity> resultObject = await _unitOfWork.ClientGroupRepository.GetAll();
             return Ok(resultObject);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            ClientGroupEntity result = await _unitOfWork.ClientGroup.Get(id);
+            ClientGroupEntity result = await _unitOfWork.ClientGroupRepository.Get(id);
             return Ok(result);
         }
     }

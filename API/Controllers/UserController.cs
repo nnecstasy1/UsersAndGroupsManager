@@ -13,9 +13,7 @@
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            Console.Write("Recieve get users request");
             IEnumerable<UserEntity> resultObject = await _unitOfWork.UserRepository.GetAll();
-            Console.WriteLine("get users request complete");
             return Ok(resultObject);
         }
 
@@ -24,6 +22,13 @@
         {
             UserEntity result = await  _unitOfWork.UserRepository.Get(id);
             return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateUser(UserEntity userEntity)
+        {
+            //Extend User Repository to implement Repository which includes handling of add, delete.
+            throw new NotImplementedException();
         }
     }
 }

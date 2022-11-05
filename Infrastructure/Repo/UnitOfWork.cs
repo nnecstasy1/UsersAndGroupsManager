@@ -16,12 +16,12 @@
             get => new UserRepository(_context);
         }
 
-        public IClientGroupRepo ClientGroup
+        public IClientGroupRepo ClientGroupRepository
         {
             get => new ClientGroupRepository(_context);
         }
 
-        public IClientGroupUserRepo ClientGroupUser
+        public IClientGroupUserRepo ClientGroupUserRepository
         {
             get => new ClientGroupUserRepository(_context);
         }

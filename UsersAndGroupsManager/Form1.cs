@@ -34,7 +34,7 @@ namespace UsersAndGroupsManager
             Task.Run(() => GetAssignedAndUnassignedGroups(userId));
             return userId;
         }
-        public async void GetAssignedAndUnassignedGroups(int userId)
+        public void GetAssignedAndUnassignedGroups(int userId)
         {
             (assigned, unassigned) = userGroupsBL.GetAssignedUsersGroupsAsync(userId);
             ucAssigned.userGroups = new BindingList<UserGroups>(assigned);
@@ -62,17 +62,17 @@ namespace UsersAndGroupsManager
             ucUserGrid.UpdateUsersDataSource(usersList);
         }
 
-        private void AssignUser()
+        private async void AssignUser()
         {
             ucUnassigned.SelectedUserGroups();
-            clientGroupBL.AssignUserOrUnAssignToGroup(true, ucUserGrid.SelectedUserId, ucUnassigned.selectedUserGroupsList);
+            await clientGroupBL.AssignUserOrUnAssignToGroup(true, ucUserGrid.SelectedUserId, ucUnassigned.selectedUserGroupsList);
             LoadAssignedAndUnassigedGroupsTask(ucUserGrid.SelectedUserId);
         }
 
-        private void UnassignUser()
+        private async void UnassignUser()
         {
             ucAssigned.SelectedUserGroups();
-            clientGroupBL.AssignUserOrUnAssignToGroup(false, ucUserGrid.SelectedUserId, ucAssigned.selectedUserGroupsList);
+            await clientGroupBL.AssignUserOrUnAssignToGroup(false, ucUserGrid.SelectedUserId, ucAssigned.selectedUserGroupsList);
             LoadAssignedAndUnassigedGroupsTask(ucUserGrid.SelectedUserId);
         }
 

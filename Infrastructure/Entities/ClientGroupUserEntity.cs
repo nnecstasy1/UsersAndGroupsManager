@@ -2,16 +2,16 @@
 
 namespace Infrastructure
 {
-    [Index(nameof(UserId))]
+    [Index(nameof(UserId), nameof(ClientGroupId))]
     public class ClientGroupUserEntity : TEntity
     {
-        //TODO: referential integrity constraint fix between entities.
+        [Required]
         public int UserId { get; set; }
-        [ForeignKey("Id")]
-        //public UserEntity User { get; set; }
+        [JsonIgnore]
+        public UserEntity UserEntity { get; set; }
+        [Required]
         public int ClientGroupId { get; set; }
-        //[ForeignKey("Id")]
-        //public ClientGroupEntity ClientGroup { get; set; }
-        
+        [JsonIgnore]
+        public ClientGroupEntity ClientGroupEntity { get; set; }
     }
 }
