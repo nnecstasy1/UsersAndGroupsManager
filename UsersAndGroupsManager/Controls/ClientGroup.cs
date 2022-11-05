@@ -26,7 +26,20 @@ namespace UsersAndGroupsManager.Controls
         {
             lstGroups.DisplayMember = nameof(UserGroups.Name);
             lstGroups.ValueMember = nameof(UserGroups.Id);
-            lstGroups.DataSource = userGroups;
+        }
+
+        public void ManageListBoxItems()
+        {
+            lstGroups.Invoke(new MethodInvoker(delegate 
+            {
+                lstGroups.DataSource = userGroups;
+                lstGroups.ClearSelected();
+            }));
+        }
+
+        internal void UpdateLabel(string listBoxTitle)
+        {
+            lblListBoxHeaderPlaceHolder.Text = listBoxTitle;
         }
     }
 }

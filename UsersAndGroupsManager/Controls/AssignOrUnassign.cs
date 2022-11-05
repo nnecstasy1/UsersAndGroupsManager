@@ -17,12 +17,8 @@ namespace UsersAndGroupsManager.Controls
             InitializeComponent();
         }
 
-        public Func<int> btnAssignFunc { get; set; }
-        public Func<int> btnUnassignFunc { get; set; }
-        private void AssignOrUnassign_Load(object sender, EventArgs e)
-        {
-
-        }
+        public Action btnAssignFunc { get; set; }
+        public Action btnUnassignFunc { get; set; }
 
         private void btnAssign_Click(object sender, EventArgs e)
         {

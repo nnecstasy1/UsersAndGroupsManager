@@ -65,7 +65,6 @@
             this.Controls.Add(this.btnUnassign);
             this.Controls.Add(this.btnAssign);
             this.Name = "AssignOrUnassign";
-            this.Load += new System.EventHandler(this.AssignOrUnassign_Load);
             this.ResumeLayout(false);
 
         }

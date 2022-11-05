@@ -16,5 +16,10 @@ namespace UsersAndGroupsManager.Controls
         {
             InitializeComponent();
         }
+
+        internal void UpdateLabel(string v)
+        {
+            lblHeaderText.Text = v;
+        }
     }
 }
