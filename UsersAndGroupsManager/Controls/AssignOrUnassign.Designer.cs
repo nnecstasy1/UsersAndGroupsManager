@@ -39,9 +39,9 @@
             this.btnAssign.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAssign.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAssign.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAssign.Location = new System.Drawing.Point(53, 34);
+            this.btnAssign.Location = new System.Drawing.Point(53, 29);
             this.btnAssign.Name = "btnAssign";
-            this.btnAssign.Size = new System.Drawing.Size(48, 37);
+            this.btnAssign.Size = new System.Drawing.Size(48, 61);
             this.btnAssign.TabIndex = 0;
             this.btnAssign.Text = "<";
             this.btnAssign.UseVisualStyleBackColor = true;
@@ -52,7 +52,7 @@
             this.btnUnassign.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnUnassign.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnUnassign.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnUnassign.Location = new System.Drawing.Point(53, 77);
+            this.btnUnassign.Location = new System.Drawing.Point(53, 96);
             this.btnUnassign.Name = "btnUnassign";
             this.btnUnassign.Size = new System.Drawing.Size(48, 39);
             this.btnUnassign.TabIndex = 1;
@@ -72,10 +72,10 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 41.89189F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 58.10811F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 27.95699F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 72.04301F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 11F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(150, 150);
             this.tableLayoutPanel1.TabIndex = 2;
             // 

@@ -55,15 +55,15 @@
             ClientGroups.AddRange(new ClientGroupEntity[]
             {
                 new ClientGroupEntity(){ Name = "Client Group 1", IsHidden = false},
-                new ClientGroupEntity(){ Name = "Client Group 2", IsHidden = false},
+                new ClientGroupEntity(){ Name = "Client Group 2", IsHidden = true},
                 new ClientGroupEntity(){ Name = "Client Group 3", IsHidden = false},
                 new ClientGroupEntity(){ Name = "Client Group 4", IsHidden = false},
                 new ClientGroupEntity(){ Name = "Client Group 5", IsHidden = false},
-                new ClientGroupEntity(){ Name = "Client Group 6", IsHidden = false},
+                new ClientGroupEntity(){ Name = "Client Group 6", IsHidden = true},
                 new ClientGroupEntity(){ Name = "Client Group 7", IsHidden = false},
                 new ClientGroupEntity(){ Name = "Client Group 8", IsHidden = false},
                 new ClientGroupEntity(){ Name = "Client Group 9", IsHidden = false},
-                new ClientGroupEntity(){ Name = "Client Group 10", IsHidden = false},
+                new ClientGroupEntity(){ Name = "Client Group 10", IsHidden = true},
             });
 
             ClientGroupUsers.AddRange(new ClientGroupUserEntity[]

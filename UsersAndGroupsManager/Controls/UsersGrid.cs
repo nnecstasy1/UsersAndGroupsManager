@@ -14,16 +14,21 @@
             grdUsers.AutoGenerateColumns = true;
             grdUsers.AllowUserToAddRows = false;
 
-            grdUsers.Columns.Add("UserId", "ID");
-            grdUsers.Columns.Add("Name", "Name(s)");
-            grdUsers.Columns.Add("IsGlobalUser", "Global User");
+            grdUsers.Columns.Add(nameof(User.UserId), "ID");
+            grdUsers.Columns.Add(nameof(User.Name), "User Name(s)");
+            grdUsers.Columns.Add(nameof(User.IsGlobalUser), "Global User");
+            grdUsers.Columns.Add("UserType", "User Type");
+            grdUsers.Columns[0].Visible = false;
+            grdUsers.Columns[3].Visible = false;
 
+            UpdateUsersDataSource(new List<User>());
             grdUsers.SelectionChanged += GrdUsers_SelectionChanged;
         }
 
         public void UpdateUsersDataSource(List<User> users)
         {
             grdUsers.DataSource = new BindingList<User>(users);
+            RepaintUserTypeCells();
         }
 
         private void GrdUsers_SelectionChanged(object? sender, EventArgs e)
@@ -32,6 +37,14 @@
             var selectedUser = (User)grdUsers.Rows[selectedRowIndex].DataBoundItem;
             SelectedUserId = selectedUser.UserId;
             if (selectedUser != null) GetGroupsForUserFunc.Invoke(SelectedUserId);
+        }
+
+        private void RepaintUserTypeCells()
+        {
+            foreach (DataGridViewRow row in grdUsers.Rows)
+            {
+                //row.Cells[4].Value = (bool)row.Cells[3].Value ? "Global User" : "Client User";
+            }
         }
     }
 }
