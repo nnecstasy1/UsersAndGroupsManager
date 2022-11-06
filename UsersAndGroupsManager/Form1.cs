@@ -16,6 +16,19 @@ namespace UsersAndGroupsManager
             InitializeUpdateUserControlComponents();
             this.serviceProvider = serviceProvider;
         }
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+            usersList = new List<User>();
+            assigned = new List<UserGroups>();
+            unassigned = new List<UserGroups>();
+
+            userBL = new UserBL(serviceProvider);
+            userGroupsBL = new UserGroupsBL(serviceProvider);
+            clientGroupBL = new ClientGroupBL(serviceProvider);
+
+            await FetchUsers();
+            ucUserGrid.UpdateUsersDataSource(usersList);
+        }
 
         private void InitializeUpdateUserControlComponents()
         {
@@ -37,29 +50,19 @@ namespace UsersAndGroupsManager
         public void GetAssignedAndUnassignedGroups(int userId)
         {
             (assigned, unassigned) = userGroupsBL.GetAssignedUsersGroupsAsync(userId);
-            ucAssigned.userGroups = new BindingList<UserGroups>(assigned);
-            ucUnassigned.userGroups = new BindingList<UserGroups>(unassigned);
+            ConvertListOfGroupsToBindingList();
+        }
 
+        private void ConvertListOfGroupsToBindingList()
+        {
+            ucAssigned.userGroups = new BindingList<UserGroups>(assigned);
+            ucUnassigned.userGroups = new BindingList<UserGroups>(unassigned.Where(x => !x.IsHidden).ToList());
             UpdateListBoxItems();
         }
 
         private async Task FetchUsers()
         {
             usersList = await userBL.GetUsers();
-        }
-
-        private async void Form1_Load(object sender, EventArgs e)
-        {
-            usersList = new List<User>();
-            assigned = new List<UserGroups>();
-            unassigned = new List<UserGroups>();
-
-            userBL = new UserBL(serviceProvider);
-            userGroupsBL = new UserGroupsBL(serviceProvider);
-            clientGroupBL = new ClientGroupBL(serviceProvider);
-            
-            await FetchUsers();            
-            ucUserGrid.UpdateUsersDataSource(usersList);
         }
 
         private async void AssignUser()
@@ -78,9 +81,15 @@ namespace UsersAndGroupsManager
 
         private void SearchGroup(string groupName)
         {
+            //if no value supplied on filter, bring back necessary groups.
+            if (string.IsNullOrEmpty(groupName))
+            {
+                ConvertListOfGroupsToBindingList();
+                return;
+            }
             //should the search be an exact string match(=) or a contains(like)??
             ucAssigned.userGroups = new BindingList<UserGroups>(assigned.Where(x => x.Name == groupName).ToList());
-            ucUnassigned.userGroups = new BindingList<UserGroups>(unassigned.Where(x => x.Name == groupName).ToList());
+            ucUnassigned.userGroups = new BindingList<UserGroups>(unassigned.Where(x => x.Name == groupName && !x.IsHidden).ToList());
 
             UpdateListBoxItems();
         }
