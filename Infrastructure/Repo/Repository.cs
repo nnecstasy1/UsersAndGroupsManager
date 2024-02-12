@@ -24,7 +24,7 @@
         {
             try
             {
-                T entity = Task.Run(() => Get(Id)).Result;
+                T entity = Task.Run(() => GetSingle(Id)).Result;
                 if(entity != null)
                     _context.Set<T>().Remove(entity);
             }

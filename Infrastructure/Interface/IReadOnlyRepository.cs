@@ -2,7 +2,7 @@
 {
     public interface IReadOnlyRepository<T> where T : TEntity
     {
-        Task<T> Get(int id);
-        Task<IEnumerable<T>> GetAll();
+        Task<T> GetSingle(int id);
+        Task<IEnumerable<T>> GetMany();
     }
 }

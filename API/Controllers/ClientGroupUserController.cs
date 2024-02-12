@@ -20,14 +20,14 @@
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            IEnumerable<ClientGroupUserEntity> resultObject = await _unitOfWork.ClientGroupUserRepository.GetAll();
+            IEnumerable<ClientGroupUserEntity> resultObject = await _unitOfWork.ClientGroupUserRepository.GetMany();
             return Ok(resultObject);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            ClientGroupUserEntity result = await _unitOfWork.ClientGroupUserRepository.Get(id);
+            ClientGroupUserEntity result = await _unitOfWork.ClientGroupUserRepository.GetSingle(id);
             return Ok(result);
         }
 
@@ -108,7 +108,7 @@
 
             try
             {
-                var result = _unitOfWork.ClientGroupUserRepository.GetAll().Result.ToList();
+                var result = _unitOfWork.ClientGroupUserRepository.GetMany().Result.ToList();
                 if(result == null)
                 {
                     return Ok();

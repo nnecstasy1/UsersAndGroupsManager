@@ -8,11 +8,7 @@
     {
         private readonly InMemoryDbContext _context;
         public ReadOnlyRepository(InMemoryDbContext context) => _context = context;
-        public async Task<T> Get(int id) => await _context.Set<T>().FindAsync(id);
-        public async Task<IEnumerable<T>> GetAll()
-        {
-            var result = await Task.Run(() => _context.Set<T>());
-            return result;
-        }
+        public async Task<T> GetSingle(int id) => await _context.Set<T>().FindAsync(id);
+        public async Task<IEnumerable<T>> GetMany() => await Task.Run(() => _context.Set<T>());
     }
 }

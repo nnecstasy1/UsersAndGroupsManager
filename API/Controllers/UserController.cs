@@ -13,14 +13,14 @@
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            IEnumerable<UserEntity> resultObject = await _unitOfWork.UserRepository.GetAll();
+            IEnumerable<UserEntity> resultObject = await _unitOfWork.UserRepository.GetMany();
             return Ok(resultObject);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            UserEntity result = await  _unitOfWork.UserRepository.Get(id);
+            UserEntity result = await  _unitOfWork.UserRepository.GetSingle(id);
             return Ok(result);
         }
 
